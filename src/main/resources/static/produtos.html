@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRODUTOS</title>
+  <link rel="stylesheet" href="libs/bootstrap-5.3.0-alpha3-dist/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="style/produtos.css">
+  <script src="scripts/produtos.js"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-light bg-light shadow">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1">Estoque</span>
+      <button class="navbar-toggler ml-auto order-first" type="button" data-bs-toggle="modal"
+        data-bs-target="#exampleModal">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="modal true" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Menu</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item custom-list-item" onclick="mostrarConteudo('cadastro')">Cadastro</li>
+            <li class="list-group-item custom-list-item" onclick="mostrarConteudo('estoque')">Estoque</li>
+            <li class="list-group-item custom-list-item" onclick="mostrarConteudo('ajuda')">Ajuda</li>
+            <li class="list-group-item custom-list-item" id="sairButton">Sair</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark btn-lg btn-animation" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="cadastro" class="conteudo">
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 cadastro-1">
+      <form class="custom-form">
+        <div class="form-group">
+          <label for="nome">Nome:</label>
+          <input type="text" id="nome" name="nome" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="categoria">Categoria:</label>
+          <select name="categoria" id="categoria" class="form-control"></select>
+          <span type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#categoriaModal">Adicionar
+            Categoria</span>
+        </div>
+        <div class="form-group">
+          <label for="marca">Marca:</label>
+          <select name="marca" id="marca" class="form-control"></select>
+          <span type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#marcaModal">Adicionar
+            Marca</span>
+        </div>
+        <div class="form-group">
+          <label for="preco">Preço:</label>
+          <input type="number" id="preco" step="0.01" name="preco" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="qtdeEstoque">Quantidade em estoque:</label>
+          <input type="number" id="qtdeEstoque" name="qtdeEstoque" class="form-control">
+        </div>
+        <div class="form-group">
+          <span type="submit" id="salvarProduto" class="btn btn-dark btn-lg btn-animation"
+            onclick="salvarProduto()">Cadastrar Produto</span>
+        </div>
+      </form>
+    </main>
+  </div>
+
+  <div id="estoque" class="conteudo" style="display: none;">
+    <h1>LISTA DE PRODUTOS</h1>
+    <table id="tabelaProdutos">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Produto</th>
+          <th>Categoria</th>
+          <th>Marca</th>
+          <th>Preço</th>
+          <th>Quantidade em Estoque</th>
+          <th>Excluir</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div id="ajuda" class="conteudo" style="display: none;">
+    <div class="caixaAjuda">
+      <div class="titulo" onclick="toggleContent(this)">Cadastrar Item</div>
+      <div class="conteudo">
+        <pre>
+        Passo 1: Abra a página de cadastro
+
+        Clique na opção "Cadastro" no menu principal.
+        Passo 2: Preencha as informações do item
+
+        Insira o nome do item no campo "Nome".
+        Selecione a categoria do item no menu suspenso "Categoria".
+        Caso a categoria desejada não esteja disponível, clique em "Adicionar Categoria" para abrir um modal onde você
+        pode inserir uma nova categoria.
+        Selecione a marca do item no menu suspenso "Marca".
+        Se a marca desejada não estiver listada, clique em "Adicionar Marca" para abrir um modal onde você pode inserir
+        uma nova marca.
+        Insira o preço do item no campo "Preço".
+        Insira a quantidade disponível em estoque no campo "Quantidade em estoque".
+        Passo 3: Salve o item cadastrado
+
+        Clique no botão "Cadastrar Produto" para salvar as informações do item no banco de dados.
+        Após seguir esses passos, o item será cadastrado no sistema. Certifique-se de preencher todas as informações
+        necessárias corretamente antes de salvar.
+      </pre>
+      </div>
+      <div class="titulo" onclick="toggleContent(this)">Consultar Item</div>
+      <div class="conteudo">
+        <pre>
+
+        Acesse a página de consulta
+
+        No menu principal, clique na opção "Estoque" para abrir a página de estoque.
+        Visualize a lista de produtos
+
+        Na página de estoque, será exibida uma tabela com os produtos cadastrados.
+        A tabela contém as seguintes colunas: ID, Produto, Categoria, Marca, Preço e Quantidade em Estoque.
+        Localize o item desejado na lista
+
+        Role a tabela para cima ou para baixo para encontrar o item que você deseja consultar.
+        Caso haja muitos itens na lista, você pode utilizar a funcionalidade de pesquisa ou ordenação para facilitar a
+        busca.
+        Analise os detalhes do item
+
+        Na linha correspondente ao item desejado, verifique as informações presentes em cada coluna.
+        Observe o nome do produto, a categoria à qual pertence, a marca, o preço e a quantidade em estoque.
+        Volte à página de estoque
+
+        Para realizar consultas adicionais ou visualizar outros produtos, você pode utilizar o botão "Voltar" ou navegar
+        novamente até a página de estoque.
+        Ao seguir esses passos, você poderá consultar os itens disponíveis no estoque. Lembre-se de localizar o item
+        desejado na lista e analisar os detalhes relevantes antes de prosseguir com outras ações.
+      </pre>
+      </div>
+      <div class="titulo" onclick="toggleContent(this)">Como faço para atualizar as informações de um produto
+        cadastrado?</div>
+      <div class="conteudo">
+        <pre>
+        Para atualizar as informações de um produto, acesse a página de estoque e localize o item desejado na lista.
+        Clique no botão de edição correspondente ao produto e faça as alterações necessárias nos campos disponíveis. 
+        Emseguida, salve as modificações para atualizar os dados no banco de dados.
+      </pre>
+      </div>
+      <div class="titulo" onclick="toggleContent(this)">É possível excluir um produto do estoque?</div>
+      <div class="conteudo">
+        <pre>
+          Sim, é possível excluir um produto do estoque. 
+          Na página de estoque, localize o produto que você deseja excluir na tabela e clique no botão de exclusão correspondente. 
+          Será exibida uma mensagem de confirmação e, ao confirmar a exclusão, o produto será removido permanentemente do banco de dados.
+      </pre>
+      </div>
+      <div class="titulo" onclick="toggleContent(this)">Como posso adicionar novas categorias ou marcas?</div>
+      <div class="conteudo">
+        <pre>
+          Para adicionar uma nova categoria, clique no botão "Adicionar Categoria" ao selecionar a categoria de um produto no formulário de cadastro. Isso abrirá um modal onde você poderá inserir o nome da nova categoria.
+          Da mesma forma, para adicionar uma nova marca, clique no botão "Adicionar Marca" ao selecionar a marca de um produto no formulário de cadastro. Um modal será aberto, permitindo que você insira o nome da nova marca.
+      </pre>
+      </div>
+      <div class="titulo" onclick="toggleContent(this)">Precisa de suporte adicional ou tem outras dúvidas?</div>
+      <div class="conteudo">
+        <pre>
+          Entre em contato conosco via WhatsApp: +XX XXXX-XXXX. Nossa equipe estará disponível para ajudar e responder suas perguntas.
+      </pre>
+      </div>
+      <!-- Conteúdo da página de ajuda -->
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="libs/bootstrap-5.3.0-alpha3-dist/js/bootstrap.bundle.js"></script>
+
+    <!-- Modal Categoria -->
+    <div class="modal fade" id="categoriaModal" tabindex="-1" aria-labelledby="categoriaModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="categoriaModalLabel">Nova Categoria</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <label for="novaCategoria">Nome da Categoria:</label>
+            <input type="text" id="novaCategoria" name="novaCategoria" class="form-control">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-primary" onclick="salvarCategoria()">Salvar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Marca -->
+    <div class="modal fade" id="marcaModal" tabindex="-1" aria-labelledby="marcaModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="marcaModalLabel">Nova Marca</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <label for="novaMarca">Nome da Marca:</label>
+            <input type="text" id="novaMarca" name="novaMarca" class="form-control">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-primary" onclick="salvarMarca()">Salvar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+</body>
+
+<!-- TESTE SCRIPTS -->
+<script>
+
+</script>
+
+
+</html>
+
+<!--TESTES QUE DEIXEI SALVO -->
+
+<!--
+  <header>
+    <div class="leaft">
+      <h3> Logistica <span>Center</span></h3>
+    </div>
+    <div class="right">
+      <a href="#" class="sair_btn">Sair</a>
+    </div>
+  </header>
+  <!-- Sidebar inicio
+  <div class="sidebar">
+    <center>
+      <img src="" class="image" alt="">
+      <h2> Texto </h2>
+    </center>
+    <a href="#"><ion-icon name="archive-outline"></ion-icon><span>Cadastro</span></ion-icon></a>
+    <a href="#"><ion-icon name="clipboard-outline"><span>Estoque</span></ion-icon></a>
+    <a href="#"><ion-icon name="help-outline"></ion-icon><span>Ajuda</span></ion-icon></a>
+    <a href="#"><ion-icon name="exit-outline"></ion-icon><span>Sair</span></ion-icon></a>
+  </div>
+   Sidebar Final -->
